@@ -1,0 +1,266 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="cstm">Confirmed Cases</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div id="d1" class="col">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="cstm">Deaths</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div id="d2" class="col">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" id="countryInfo">
+    <div class="row">
+        <div class="col-4">
+            <button class="btn btn-dark" id="getUsers">More info</button>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-dark" id="getDistrictData">Bihar Data</button>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-dark" id="getJharkhandData">Jharkhand Data</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="output"></div>
+
+
+
+
+<script>
+  document.getElementById('getUsers').addEventListener('click',getUsers)
+  
+  
+
+  function getUsers(){
+    fetch("https://corona.lmao.ninja/countries/IND")
+    .then(res => res.json())
+    .then(data =>{
+        let cases = JSON.stringify(data["cases"])
+        let todayCases = JSON.stringify(data["todayCases"])
+        let deaths = JSON.stringify(data["deaths"])
+        let todayDeaths = JSON.stringify(data["todayDeaths"])
+        let recovered = JSON.stringify(data["recovered"])
+        let active = JSON.stringify(data["active"])
+        let critical = JSON.stringify(data["critical"])
+        let casesPerOneMillion = JSON.stringify(data["casesPerOneMillion"])
+        let deathsPerOneMillion = JSON.stringify(data["deathsPerOneMillion"])
+        let tests = JSON.stringify(data["tests"])
+        let testsPerOneMillion = JSON.stringify(data["testsPerOneMillion"])
+
+        let rest = `
+               
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">#</th>
+                        </tr>    
+                    </thead>
+                    
+                    
+                    <tbody>
+                        <tr>
+                            <td scope="row">Cases Confirmed</th>
+                            <th>${cases}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Cases Found Today</th>
+                            <th>${todayCases}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Deaths</th>
+                            <th>${deaths}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Deaths Today</th>
+                            <th>${todayDeaths}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Recovered</th>
+                            <th>${recovered}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Active Cases</th>
+                            <th>${active}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Critical</th>
+                            <th>${critical}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Cases per million</th>
+                            <th>${casesPerOneMillion}</th>
+                        </tr> 
+                        <tr>
+                            <td scope="row">Deaths per million</th>
+                            <th>${deathsPerOneMillion}</th>
+                        </tr> 
+                    </tbody>
+                </table>   
+
+        `
+
+        document.getElementById('output').innerHTML=rest
+    })
+   
+    }
+  
+</script>
+
+
+<script>
+    
+    document.getElementById('getDistrictData').addEventListener('click',getDistrictData)
+    
+    function getDistrictData(){
+    fetch("https://api.covid19india.org/state_district_wise.json")
+    .then(res => res.json())
+    .then(data => {
+        let bhagalpur =JSON.stringify(data["Bihar"]["districtData"]["Bhagalpur"]["confirmed"])
+        let munger =JSON.stringify(data["Bihar"]["districtData"]["Munger"]["confirmed"])
+        let patna =JSON.stringify(data["Bihar"]["districtData"]["Patna"]["confirmed"])
+        let siwan =JSON.stringify(data["Bihar"]["districtData"]["Siwan"]["confirmed"])
+        let nalanda =JSON.stringify(data["Bihar"]["districtData"]["Nalanda"]["confirmed"])
+        let lakhisarai =JSON.stringify(data["Bihar"]["districtData"]["Lakhisarai"]["confirmed"])
+        let gaya =JSON.stringify(data["Bihar"]["districtData"]["Gaya"]["confirmed"])
+        let gopalganj =JSON.stringify(data["Bihar"]["districtData"]["Gopalganj"]["confirmed"])
+        let begusarai =JSON.stringify(data["Bihar"]["districtData"]["Begusarai"]["confirmed"])
+        let nawada =JSON.stringify(data["Bihar"]["districtData"]["Nawada"]["confirmed"])
+
+        let rest = `
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">District</th>
+                        <th scope="col">Confirmed Cases</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">Bhagalpur</th>
+                        <th>${bhagalpur}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Nawada</th>
+                        <th>${nawada}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Patna</th>
+                        <th>${patna}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Gaya</th>
+                        <th>${gaya}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Siwan</th>
+                        <th>${siwan}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Gopalganj</th>
+                        <th>${gopalganj}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Begusarai</th>
+                        <th>${begusarai}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Munger</th>
+                        <th>${munger}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Lakhisarai</th>
+                        <th>${lakhisarai}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Nalanda</th>
+                        <th>${nalanda}</th>
+                    </tr> 
+                </tbody>    
+            </table>    
+        `
+        document.getElementById("output").innerHTML=rest
+        
+    })
+    }
+    
+</script>
+
+<script>
+    document.getElementById('getJharkhandData').addEventListener('click',getJharkhandData)
+
+    function getJharkhandData(){
+        fetch("https://api.covid19india.org/state_district_wise.json")
+        .then(res => res.json())
+        .then(data => {
+            let ranchi =JSON.stringify(data["Jharkhand"]["districtData"]["Ranchi"]["confirmed"])
+            let hazaribagh =JSON.stringify(data["Jharkhand"]["districtData"]["Hazaribagh"]["confirmed"])
+            let bokaro =JSON.stringify(data["Jharkhand"]["districtData"]["Bokaro"]["confirmed"])
+
+
+            let rest = `
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">District</th>
+                        <th scope="col">Confirmed Cases</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">Ranchi</th>
+                        <th>${ranchi}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Bokaro</th>
+                        <th>${bokaro}</th>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Hazaribagh</th>
+                        <th>${hazaribagh}</th>
+                    </tr> 
+                </tbody>
+            </table>
+            `   
+            
+            document.getElementById('output').innerHTML=rest
+
+        })
+    }
+</script>
+
+
+<script>
+   fetch("https://corona.lmao.ninja/countries/IND")
+   .then(res => res.json())
+   .then(data => {
+       let cases = JSON.stringify(data["cases"])
+       let deaths = JSON.stringify(data["deaths"])
+
+       let c = `
+            <h1 class="cstm" style="color: grey">${cases}</h1>
+       `
+       let d = `
+            <h1 class="cstm" style="color: red">${deaths}</h1>
+       `
+       document.getElementById('d1').innerHTML=c
+       document.getElementById('d2').innerHTML=d
+   })
+</script>
